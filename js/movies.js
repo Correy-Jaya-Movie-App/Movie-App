@@ -1,22 +1,23 @@
 $(document).ready(function (){
 
-
-// functions for 1. adding 2. editing 3. deleting
     const url = 'https://tide-opalescent-sled.glitch.me/movies';
+//  <----functions for 1. adding 2. editing 3. deleting----->
+
     const moviesObject = fetch(`${url}`);
 
     function movieFetchRequest(){
          moviesObject
+             .then($('#load').append('Loading'))
              .then((response)=> response.json())
              .then( (data)=>{
                  console.log(data);
-             })
+             }).then()
             .catch( error => console.error(error) ); /* handle errors */
     }
     console.log(movieFetchRequest());
 
 
-// function add a movie
+// <-----------function add a movie------------------->
 
 function addMovie() {
     const addNewMovie = {
@@ -42,47 +43,25 @@ function addMovie() {
 
 }
 
-    // console.log(addMovie());
+    console.log(addMovie());
 
+            //<-----------------------function to delete a movie----------------------->
+            function deleteMovie() {
+                const removeMovie  = fetch(`${url}`, {
 
-
-            const removeMovie = id => fetch(`${url}/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-
-                    .then((response)=> response.json())
-                    .then( (data)=>{
-                        console.log(data);
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then((response) => response.json())
+                    .then(data => {console.log(data);
                     })
-                    .catch( error => console.error(error) ) /* handle errors */
+                    .catch(error => console.error(error)) /* handle errors */
+            }
 
-        
-
-
-
-
-
-
-
-
-
-
+    // console.log(deleteMovie());
 
 
 //    ending document.ready
 });
-
-// const deleteDog = id => fetch(`${apiURL}/${id}`, {
-//     method: 'DELETE',
-//     headers: {
-//         'Content-Type': 'application/json'
-//     }
-// })
-//     .then(res => res.json())
-//     .then(() => {
-//         console.log(`Success: deleted dog with id of ${id}`);
-//     })
-//     .catch(console.error);
