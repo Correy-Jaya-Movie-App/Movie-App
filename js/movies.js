@@ -1,32 +1,30 @@
 $(document).ready(function (){
-
+let j;
     const url = 'https://tide-opalescent-sled.glitch.me/movies'
 
     //  <----functions for 1. adding 2. editing 3. deleting----->
 
     const moviesObject = fetch(`${url}`)
-        .then(response=>response.json())
-        .then(data => {console.log(data)
 
-    });
+    let loadingmsg = $('<div>');
+    let loadEl = $('#load');
+    loadingmsg.html("<b>loading</b>");
+    loadEl.append(loadingmsg);
+
     //----------- loading------------------------
     function movieFetchRequest(){
-        let loadingmsg = $('<div>');
-        let loadEl = $('#load');
-        loadingmsg.html("<b>loading</b>");
-        loadEl.append(loadingmsg);
-         // moviesObject
-             // // .then(res => res.json())
-             // .then(function (data) {
-             //      let startHtml = ''
-             //         for(let i=0;i<5;i++){
-             //            startHtml += renderMovieCards(data,i);
-             //     }
-             //     ${'#main-container'}.html(startHtml)
-             // })
-             // .finally(f => {
-             //         loadingmsg.remove();
-             //     });
+         moviesObject
+             .then(response =>response.json())
+             .then( data => {
+                  let startHtml = ''
+                     for(let i=0 ;i<5 ;i++){
+                        startHtml += renderMovieCards(data,i);
+                 }
+                 $('#main-container').html(startHtml)
+             })
+             .finally(f => {
+                     loadingmsg.remove();
+                 });
     }
 
     console.log(movieFetchRequest());
@@ -35,15 +33,15 @@ $(document).ready(function (){
 
 function addMovie() {
     const addNewMovie = {
-        actors: 'Chris Hemsworth, Robert Downey Jr.',
-        directors: "Joss Whedon",
-        genre: "Fantasy",
-        id: 5,
-        plot: "Superheros fight bad guys",
-        poster: "",
-        rating: 5,
-        title: 'Avengers',
-        year: "2012"
+        title: "tenet",
+        rating: "5",
+        poster: "https://m.media-amazon.com/images/M/MV5BYzg0NGM2NjAtNmIxOC00MDJmLTg5ZmYtYzM0MTE4NWE2NzlhXkEyXkFqcGdeQXVyMTA4NjE0NjEy._V1_SX300.jpg",
+        year: "2020",
+        genre: "Action, Sci-Fi",
+        director: "Christopher Nolan",
+        plot: "Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.",
+        actors: "Elizabeth Debicki, Robert Pattinson, John David Washington, Aaron Taylor-Johnson",
+        id: 3
     };
     const options = {
         method: 'POST',
@@ -56,7 +54,9 @@ function addMovie() {
 
 }
 
- //<-----------------------function to delete a movie----------------------->
+    console.log(addMovie());
+
+    //<-----------------------function to delete a movie----------------------->
             function deleteMovie() {
 
                 const removeMovie  = fetch(`${url}/id`, {
@@ -86,15 +86,15 @@ function addMovie() {
 
 
 //____________________Render cards------------------
-    function  renderMovieCards(data) {
-           starthtml+=
-               `<div class="card">
-             <img class="card-img-top" src="" alt="Card image top">
-             <div class="card-body">
-                    <h3 class="card-title">Movie title</h3>
-                    <h4 class="card-subtitle">Movie Description</h4>
-                    <p class="card-text">This is a simple Card example</p>
-                 </div></div>`
+    function  renderMovieCards(data,j) {
+           let html= `<div class="card">`
+               html+=`
+                 <img class="card-img-top" src="" alt="Card image top">
+                 <div class="card-body">
+                        <h3 class="card-title">Movie title</h3>
+                        <h4 class="card-subtitle">Movie Description</h4>
+                        <p class="card-text">This is a simple Card example</p>
+                     </div></div>`
                    return html;
     }
 //    ending document.ready
