@@ -2,11 +2,12 @@ h1{
     color: purple;
 }
 
+
 /*
-    1. Loading
-    2. card to display movie with info
-    3. 3 buttons a) add movie
-                 b) edit movie
+    1. Loading---> Done
+    2. card to display movie with info-->done
+    3. 3 buttons a) add movie---> need o render via form
+                 b) edit movie-->render via form
                  c) delete movie
 
 
