@@ -1,15 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 h1{
     color: purple;
 }
 
+.card-title {
+    text-transform: capitalize;
+}
 
-/*
-    1. Loading---> Done
-    2. card to display movie with info-->done
-    3. 3 buttons a) add movie---> need o render via form
-                 b) edit movie-->render via form
-                 c) delete movie
+.card-body {
+    background-color: #414042;
+    color: #FFFFFF;
+}
 
+.card-img-overlay {
+    padding: 0;
+    color: #FFFFFF;
+}
 
+.text-background {
+    background-color: #000000;
+    opacity: .5;
+    margin-top: 0;
+    z-index: 0;
+    position: absolute;
+}
 
- */
+.card-btn {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    background-color: #000000;
+    color: #FFFFFF;
+    margin: 0;
+    border: solid .5px #FFFFFF;
+}
+
+.card-text {
+    z-index: 1;
+}
