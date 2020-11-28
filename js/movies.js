@@ -1,15 +1,20 @@
-
-
-
-let DEBUG = true;
+let j;
+let DEBUG = false;
 const url = 'https://tide-opalescent-sled.glitch.me/movies'
+
 //  <----functions for 1. adding 2. editing 3. deleting----->
+
+
+
+
+//----------- loading------------------------
 function movieFetchRequest(){
     const moviesObject = fetch(url);
     let loadingmsg = $('<div>');
     let loadEl = $('#load');
     loadingmsg.html("<b>loading</b>");
     loadEl.append(loadingmsg);
+
     moviesObject
         .then(response =>response.json())
         .then( data => {
@@ -23,32 +28,26 @@ function movieFetchRequest(){
         });
     //Promise completed
 }
+
 function renderCards(data) {
     let startHtml = ''
     for(let i=0 ;i<data.length ;i++){
         startHtml += renderMovieCards(data[i]);
     }
-    $('#cards-container').html(startHtml);
+    $('#main-container').html(startHtml);
     return data;
 }
 // <-----------function add a movie------------------->
-function addMovie() {
-    let addMovieTitle=$('#movie-title').val();
-    let addMovieGenre=$('#movie-genre').val();
-    let addMovieRating=$('#movie-rating').val();
-    let addMovieDescription=$('#movie-plot').val();
-    let addMovieDirector=$('#movie-director').val();
-    let addMovieYear=$('#movie-year').val();
-    let addMovieActors = $('#movie-actors').val();
 
+function addMovie() {
     const newMovieObj = {
-        title: addMovieTitle,
-        rating: addMovieRating,
+        title: "tenet",
+        rating: "5",
         poster: "https://m.media-amazon.com/images/M/MV5BYzg0NGM2NjAtNmIxOC00MDJmLTg5ZmYtYzM0MTE4NWE2NzlhXkEyXkFqcGdeQXVyMTA4NjE0NjEy._V1_SX300.jpg",
-        year: addMovieYear,
-        genre: addMovieGenre,
-        director: addMovieDirector,
-        plot: addMovieDescription,
+        year: "2020",
+        genre: "Action, Sci-Fi",
+        director: "Christopher Nolan",
+        plot: "Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.",
         actors: "Elizabeth Debicki, Robert Pattinson, John David Washington, Aaron Taylor-Johnson",
     };
     const options = {
@@ -60,10 +59,13 @@ function addMovie() {
     };
     // insert new movie
     fetch(url,options).then(movieFetchRequest);
-}
+};
+
+
 //<-----------------------function to delete a movie----------------------->
 function deleteMovie(id) {
     const removeMovie  = fetch(`${url}/${id}`, {
+
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -73,47 +75,57 @@ function deleteMovie(id) {
         .catch(error => console.error(error)) /* handle errors */
 }
 //function to edit a movie
+
+
 function editMovie(){
     const editMovieInfo = fetch(`${url}/id`, {
+
         method:'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newMovieObj)
+        //body: JSON.stringify(newMovieObj)
     })
         .then((response) => response.json())
         .catch(error => console.error(error)) /* handle errors */
 }
+
+
 //<-----------------------------Render cards-------------------------->
 function  renderMovieCards(movie) {
-    let html = "";
-
-    html +=    `<div class="card mb-3" style="width: 65%">
-            <div style="height: 400px">
-                <img class="card-img-top" src=${movie.poster} alt="Card image top">
-            </div>
-            
-            <button class="card-btn">Edit</button><button class="card-btn">Delete</button>
-            
-            <div class="card-img-overlay">
-            <div class="text-background"  style = "width: 35%">
-                <h5 class="card-title card-text" id="title">${movie.title}</h5>
-                <p class="card-text" id="year">${movie.year}</p>
-                <p class="card-text" id="rating">${movie.rating}</p>
-            </div>
-                
-            </div>    
-            <div class="card-body">    
-                <p class="card-text" id="plot">${movie.plot}</p>
-                <p class="card-text" id="genres">${movie.genres}</p>
-                <p class="card-text" id="director">${movie.director}</p>
-                <p class="card-text" id="cast">${movie.actors}</p>
-            </div>
-        </div>`
-
+    let html= `<div class="card" >`
+    html+=`
+                 <img class="card-img-top" style="width: 200px" src=${movie.poster} alt="Card image top">
+                 <div class="card-body">
+                        <h3 class="card-title">${movie.title}</h3>
+                        <h4 class="card-subtitle">Movie Description</h4>
+                        <p class="card-text">This is a simple Card example</p>
+                        <p><button onclick='deleteMovie(${movie.id})'>Delete</button></p>
+                     </div></div>`
     return html;
 }
+
 $(document).ready(function (){
+
     movieFetchRequest();
     $('#addMovieBtn').on('click', addMovie);
+
 });
+
+
+// let table = $('<table>');
+// data.forEach(movie=> {
+//     let tdTitle = $('<td>');
+//     tdTitle.html(movie.title);
+//     let tdActor = $('<td>');
+//     tdActor.html(movie.actors);
+//     let tr = $('<tr>')
+//     tr.append(tdTitle);
+//     tr.append(tdActor);
+//     table.append(tr)
+// });
+// $('body').append(table);
+
+
+
+// const url = 'https://tide-opalescent-sled.glitch.me/movies';
