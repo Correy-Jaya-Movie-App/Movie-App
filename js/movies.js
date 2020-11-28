@@ -101,18 +101,37 @@ function editMovie(){
 
 //<-----------------------------Render cards-------------------------->
 function  renderMovieCards(movie) {
-    let html= `<div class="card" >`
-    html+=`
-                 <img class="card-img-top" style="width: 200px" src=${movie.poster} alt="Card image top">
-                 <div class="card-body">
-                        <h3 class="card-title">
-                            ${movie.title.charAt(0).toUpperCase()}${movie.title.slice(1).toLowerCase()}</h3>
-                        
-                        <h4 class="card-subtitle">${movie.plot}</h4>
-                        <p class="card-text">This is a simple Card example</p>
-                        <p><button onclick='deleteMovie(${movie.id})'>Delete</button></p>
-                     </div></div>`
-    return html;
+    let cardHTML= "";
+    cardHTML +=
+ 
+            `<div class="card mb-3">
+                <div>
+                    <img class="card-img-top" src=${movie.poster} alt="Card image top">
+                </div>
+                
+                
+                    <div>
+                        <button class="card-btn">Edit</button><button class="card-btn">Delete</button>
+                    </div>
+                
+            
+                <div class="card-img-overlay">
+                    <div class="text-background"  style = "width: 35%">
+                        <h5 class="card-title card-text" id="title">${movie.title}</h5>
+                        <p class="card-text" id="year">${movie.year}</p>
+                        <p class="card-text" id="rating">${movie.rating}</p>
+                    </div>                
+                </div>   
+             
+                <div class="card-body">    
+                    <p class="card-text" id="plot">${movie.plot}</p>
+                    <p class="card-text" id="genres">${movie.genres}</p>
+                    <p class="card-text" id="director">${movie.director}</p>
+                    <p class="card-text" id="cast">${movie.actors}</p>
+                </div>            
+            </div>`
+
+    $('#rendered-card').html(cardHTML);
 }
 
 $(document).ready(function (){
@@ -121,22 +140,3 @@ $(document).ready(function (){
     $('#addMovieBtn').on('click', addMovie);
 
 });
-
-
-// let table = $('<table>');
-// data.forEach(movie=> {
-//     let tdTitle = $('<td>');
-//     tdTitle.html(movie.title);
-//     let tdActor = $('<td>');
-//     tdActor.html(movie.actors);
-//     let tr = $('<tr>')
-//     tr.append(tdTitle);
-//     tr.append(tdActor);
-//     table.append(tr)
-// });
-// $('body').append(table);
-
-
-
-// const url = 'https://tide-opalescent-sled.glitch.me/movies';
-/// testing need to make changes
