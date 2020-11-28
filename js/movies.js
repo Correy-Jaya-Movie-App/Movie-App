@@ -40,14 +40,21 @@ function renderCards(data) {
 // <-----------function add a movie------------------->
 
 function addMovie() {
+    let addMovieTitle=$('#movie-title').val()
+    let addMovieGenre=$('#movie-genre').val()
+    let addMovieRating=$('#movie-rating').val()
+    let addMovieDescription=$('#movie-plot').val()
+    let addMovieDirector=$('#movie-director').val()
+    let addMovieYear=$('#movie-year').val()
+
     const newMovieObj = {
-        title: "tenet",
-        rating: "5",
+        title: addMovieTitle,
+        rating: addMovieRating,
         poster: "https://m.media-amazon.com/images/M/MV5BYzg0NGM2NjAtNmIxOC00MDJmLTg5ZmYtYzM0MTE4NWE2NzlhXkEyXkFqcGdeQXVyMTA4NjE0NjEy._V1_SX300.jpg",
-        year: "2020",
-        genre: "Action, Sci-Fi",
-        director: "Christopher Nolan",
-        plot: "Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.",
+        year: addMovieYear,
+        genre: addMovieGenre,
+        director: addMovieDirector,
+        plot: addMovieDescription,
         actors: "Elizabeth Debicki, Robert Pattinson, John David Washington, Aaron Taylor-Johnson",
     };
     const options = {
@@ -89,6 +96,8 @@ function editMovie(){
         .then((response) => response.json())
         .catch(error => console.error(error)) /* handle errors */
 }
+
+
 
 
 //<-----------------------------Render cards-------------------------->
