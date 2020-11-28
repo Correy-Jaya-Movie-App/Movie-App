@@ -1,5 +1,4 @@
-let j;
-let DEBUG = false;
+let DEBUG = true;
 const url = 'https://tide-opalescent-sled.glitch.me/movies'
 
 //  <----functions for 1. adding 2. editing 3. deleting----->
@@ -7,7 +6,6 @@ const url = 'https://tide-opalescent-sled.glitch.me/movies'
 
 
 
-//----------- loading------------------------
 function movieFetchRequest(){
     const moviesObject = fetch(url);
     let loadingmsg = $('<div>');
@@ -34,20 +32,28 @@ function renderCards(data) {
     for(let i=0 ;i<data.length ;i++){
         startHtml += renderMovieCards(data[i]);
     }
-    $('#main-container').html(startHtml);
+    $('#cards-container').html(startHtml);
     return data;
 }
 // <-----------function add a movie------------------->
 
 function addMovie() {
+
+    let addMovieTitle=$('#movie-title').val()
+    let addMovieGenre=$('#movie-genre').val()
+    let addMovieRating=$('#movie-rating').val()
+    let addMovieDescription=$('#movie-plot').val()
+    let addMovieDirector=$('#movie-director').val()
+    let addMovieYear=$('#movie-year').val()
+
     const newMovieObj = {
-        title: "tenet",
-        rating: "5",
+        title: addMovieTitle,
+        rating: addMovieRating,
         poster: "https://m.media-amazon.com/images/M/MV5BYzg0NGM2NjAtNmIxOC00MDJmLTg5ZmYtYzM0MTE4NWE2NzlhXkEyXkFqcGdeQXVyMTA4NjE0NjEy._V1_SX300.jpg",
-        year: "2020",
-        genre: "Action, Sci-Fi",
-        director: "Christopher Nolan",
-        plot: "Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.",
+        year: addMovieYear,
+        genre: addMovieGenre,
+        director: addMovieDirector,
+        plot: addMovieDescription,
         actors: "Elizabeth Debicki, Robert Pattinson, John David Washington, Aaron Taylor-Johnson",
     };
     const options = {
@@ -59,7 +65,7 @@ function addMovie() {
     };
     // insert new movie
     fetch(url,options).then(movieFetchRequest);
-};
+}
 
 
 //<-----------------------function to delete a movie----------------------->
@@ -74,6 +80,8 @@ function deleteMovie(id) {
         .then((response) => response.json()).then(movieFetchRequest)
         .catch(error => console.error(error)) /* handle errors */
 }
+
+
 //function to edit a movie
 
 
@@ -97,8 +105,10 @@ function  renderMovieCards(movie) {
     html+=`
                  <img class="card-img-top" style="width: 200px" src=${movie.poster} alt="Card image top">
                  <div class="card-body">
-                        <h3 class="card-title">${movie.title}</h3>
-                        <h4 class="card-subtitle">Movie Description</h4>
+                        <h3 class="card-title">
+                            ${movie.title.charAt(0).toUpperCase()}${movie.title.slice(1).toLowerCase()}</h3>
+                        
+                        <h4 class="card-subtitle">${movie.plot}</h4>
                         <p class="card-text">This is a simple Card example</p>
                         <p><button onclick='deleteMovie(${movie.id})'>Delete</button></p>
                      </div></div>`
@@ -129,3 +139,4 @@ $(document).ready(function (){
 
 
 // const url = 'https://tide-opalescent-sled.glitch.me/movies';
+/// testing need to make changes
