@@ -2,7 +2,10 @@ h1{
     color: purple;
 }
 
+.show{
+    visibility: visible;
 
+}
 /*
     1. Loading---> Done
     2. card to display movie with info-->done
