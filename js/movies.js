@@ -1,4 +1,4 @@
-let j;
+
 let DEBUG = false;
 const url = 'https://tide-opalescent-sled.glitch.me/movies'
 
@@ -19,7 +19,7 @@ function movieFetchRequest(){
         .then(response =>response.json())
         .then( data => {
             renderCards(data);
-            if(DEBUG) {
+            if(true) {
                 console.log(data);
             }
         })
@@ -40,22 +40,23 @@ function renderCards(data) {
 // <-----------function add a movie------------------->
 
 function addMovie() {
-    let addMovieTitle=$('#movie-title').val()
-    let addMovieGenre=$('#movie-genre').val()
-    let addMovieRating=$('#movie-rating').val()
-    let addMovieDescription=$('#movie-plot').val()
-    let addMovieDirector=$('#movie-director').val()
-    let addMovieYear=$('#movie-year').val()
+    let addMovieTitle=$('#title').val()
+    let addMovieActor = $('#actors')
+    let addMovieGenre=$('#genres').val()
+    let addMovieRating=$('#rating').val()
+    let addMovieDescription=$('#plot').val()
+    let addMovieDirector=$('#director').val()
+    let addMovieYear=$('#year').val()
 
     const newMovieObj = {
         title: addMovieTitle,
         rating: addMovieRating,
         poster: "https://m.media-amazon.com/images/M/MV5BYzg0NGM2NjAtNmIxOC00MDJmLTg5ZmYtYzM0MTE4NWE2NzlhXkEyXkFqcGdeQXVyMTA4NjE0NjEy._V1_SX300.jpg",
         year: addMovieYear,
-        genre: addMovieGenre,
+        genres: addMovieGenre,
         director: addMovieDirector,
         plot: addMovieDescription,
-        actors: "Elizabeth Debicki, Robert Pattinson, John David Washington, Aaron Taylor-Johnson",
+        actors: addMovieActor
     };
     const options = {
         method: 'POST',
@@ -101,16 +102,33 @@ function editMovie(){
 
 
 //<-----------------------------Render cards-------------------------->
+
 function  renderMovieCards(movie) {
-    let html= `<div class="card" >`
-    html+=`
-                 <img class="card-img-top" style="width: 200px" src=${movie.poster} alt="Card image top">
-                 <div class="card-body">
-                        <h3 class="card-title">${movie.title}</h3>
-                        <h4 class="card-subtitle">Movie Description</h4>
-                        <p class="card-text">This is a simple Card example</p>
-                        <p><button onclick='deleteMovie(${movie.id})'>Delete</button></p>
-                     </div></div>`
+    let html=
+
+        `<div class="card mb-3" style="width: 65%">
+            <div style="height: 200px">
+                <img class="card-img-top" src=${movie.poster} alt="Card image top">
+            </div>
+            
+            <button class="card-btn">Edit</button><button class="card-btn">Delete</button>
+            
+            <div class="card-img-overlay">
+            <div class="text-background"  style = "width: 35%">
+                <h5 class="card-title card-text" id="title">${movie.title}</h5>
+                <p class="card-text" id="year">${movie.year}</p>
+                <p class="card-text" id="rating">${movie.rating}</p>
+            </div>
+                
+            </div>    
+            <div class="card-body">    
+                <p class="card-text" id="plot">${movie.plot}</p>
+                <p class="card-text" id="genres">${movie.genres}</p>
+                <p class="card-text" id="director">${movie.director}</p>
+                <p class="card-text" id="cast">${movie.actors}</p>
+            </div>
+        </div>`
+
     return html;
 }
 
