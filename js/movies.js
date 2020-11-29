@@ -13,6 +13,7 @@ const apiKeyOmdb = 'http://img.omdbapi.com/?apikey=[9bad961]&'
 // ************************************************************************
 
 function movieFetchRequest(){
+
     const moviesObject = fetch(url);
     let loadingmsg = $('<div>');
     let loadEl = $('#load');
@@ -35,10 +36,12 @@ function movieFetchRequest(){
 
 function renderCards(data) {
     let startHtml = ''
+    let parent = $('#cards-container');
+    parent.empty();
     for(let i=0 ;i<data.length ;i++){
-        startHtml += renderMovieCards(data[i]);
+        renderMovieCards(data[i],parent);
     }
-    $('#cards-container').html(startHtml);
+    //.html(startHtml);
     return data;
 }
 
@@ -98,28 +101,25 @@ function deleteMovie(id) {
         .catch(error => console.error(error)) /* handle errors */
 }
 
-$('#delete')
-
 
 
 // ************************************************************************
                             // EDIT MOVIE FUNCTION
 // ************************************************************************
 
-function editMovie(){
-    const editMovieInfo = fetch(`${url}/id`, {
+function editMovie(id){
+    const editMovieInfo = fetch(`${url}/${id}`, {
 
         method:'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
         // body: JSON.stringify(newMovieObj)
-    })
-        .then((response) => response.json())
+    }).then((response) => response.json())
         .catch(error => console.error(error)) /* handle errors */
 }
 
-$('#edit').click(editMovie());
+//$('#edit').click(editMovie());
 
 
 
@@ -127,35 +127,40 @@ $('#edit').click(editMovie());
                             // RENDER CARDS
 // ************************************************************************
 
-function  renderMovieCards(movie) {
+function  renderMovieCards(movie, parentContainer) {
 
-        let cardHTML= "";
-        cardHTML +=
+        let cardEl= $('<div>');
+        cardEl.attr("class", "col-8 col-md-8");
+
+        let cardHTML =
 
             `<div class="card mb-3">
                 <div class="img">
                     <img class="card-img-top" src=${movie.poster} alt="Card image top">
                 </div>                
                 <div>
-                    <button class="card-btn" id="edit">Edit</button><button class="card-btn" id="delete">Delete</button>
+                        
+                    <button class="card-btn" id="edit">Edit</button>
+                    <button class="card-btn" onClick="deleteMovie(${movie.id})">Delete</button>
                 </div>
-                <div class="card-img-overlay">
+                <div >
                     <div class="text-background"  style = "width: 35%">
                         <h5 class="card-title card-text" id="title">${movie.title}</h5>
                         <p class="card-text" id="year">${movie.year}</p>
                         <p class="card-text" id="rating">${movie.rating}</p>
                     </div>                
                 </div>
-                <div class="card-body">    
+                <div class="card-body">     
                     <p class="card-text" id="plot">${movie.plot}</p>
                     <p class="card-text" id="genres">${movie.genre}</p>
                     <p class="card-text" id="director">${movie.director}</p>
                     <p class="card-text" id="cast">${movie.actors}</p>
                 </div>            
             </div>`
-
-    $('#rendered-card').html(cardHTML);
-
+    cardEl.html(cardHTML);
+    //$('#rendered-card').html(cardHTML);
+    parentContainer.append(cardEl)
+    //return cardHTML;
 
 }
 
