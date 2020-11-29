@@ -5,11 +5,11 @@
 
 let DEBUG = true;
 const url = 'https://tide-opalescent-sled.glitch.me/movies'
-
+const apiKeyOmdb = 'http://img.omdbapi.com/?apikey=[9bad961]&'
 
 
 // ************************************************************************
-                            // FETCH REQUEST TO API
+                       // FETCH REQUEST TO MOVIE API
 // ************************************************************************
 
 function movieFetchRequest(){
@@ -98,6 +98,8 @@ function deleteMovie(id) {
         .catch(error => console.error(error)) /* handle errors */
 }
 
+$('#delete')
+
 
 
 // ************************************************************************
@@ -111,11 +113,13 @@ function editMovie(){
         headers: {
             'Content-Type': 'application/json',
         },
-        //body: JSON.stringify(newMovieObj)
+        // body: JSON.stringify(newMovieObj)
     })
         .then((response) => response.json())
         .catch(error => console.error(error)) /* handle errors */
 }
+
+$('#edit').click(editMovie());
 
 
 
@@ -133,7 +137,7 @@ function  renderMovieCards(movie) {
                     <img class="card-img-top" src=${movie.poster} alt="Card image top">
                 </div>                
                 <div>
-                    <button class="card-btn">Edit</button><button class="card-btn">Delete</button>
+                    <button class="card-btn" id="edit">Edit</button><button class="card-btn" id="delete">Delete</button>
                 </div>
                 <div class="card-img-overlay">
                     <div class="text-background"  style = "width: 35%">
