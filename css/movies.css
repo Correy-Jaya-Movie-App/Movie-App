@@ -34,7 +34,7 @@ h1{
 }
 
 form {
-    position: fixed;
+    position: relative;
     background-color: #414042;
     color: #FFFFFF;
 }
