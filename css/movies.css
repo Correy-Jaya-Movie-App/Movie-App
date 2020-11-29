@@ -1,18 +1,51 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
 h1{
     color: purple;
 }
 
-.show{
-    visibility: visible;
-
+.container {
+    width: 100%;
+    background-color: #414042;
+    color: #FFFFFF;
+    padding: 0;
+    margin: 0;
 }
-/*
-    1. Loading---> Done
-    2. card to display movie with info-->done
-    3. 3 buttons a) add movie---> need o render via form
-                 b) edit movie-->render via form
-                 c) delete movie
 
+.mb-3 {
+    width: 100%;
+}
 
+.card-btn, #add-movie-btn {
+    background-color: #000000;
+    color: #FFFFFF;
+    border: solid .5px #FFFFFF;
+    width: 50%;
+    height: 2em;
+}
 
- */
+#add-movie-btn {
+    width: 100%;
+}
+
+form {
+    position: fixed;
+    background-color: #414042;
+    color: #FFFFFF;
+}
+
+html, body, .card-body {
+    background-color: #414042;
+    color: #FFFFFF;
+}
+
+.text-background {
+    width: 35%;
+    background-color: #000000;
+    opacity: .5%;
+}

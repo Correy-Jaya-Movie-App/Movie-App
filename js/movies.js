@@ -1,10 +1,16 @@
+
+
+
+
+
 let DEBUG = true;
 const url = 'https://tide-opalescent-sled.glitch.me/movies'
-
-//  <----functions for 1. adding 2. editing 3. deleting----->
-
+const apiKeyOmdb = 'http://img.omdbapi.com/?apikey=[9bad961]&'
 
 
+// ************************************************************************
+                       // FETCH REQUEST TO MOVIE API
+// ************************************************************************
 
 function movieFetchRequest(){
     const moviesObject = fetch(url);
@@ -24,7 +30,7 @@ function movieFetchRequest(){
         .finally(_ => {
             loadingmsg.remove();
         });
-    //Promise completed
+    //PROMISE COMPLETED
 }
 
 function renderCards(data) {
@@ -35,26 +41,33 @@ function renderCards(data) {
     $('#cards-container').html(startHtml);
     return data;
 }
-// <-----------function add a movie------------------->
+
+
+
+// ************************************************************************
+                        // ADD MOVIE FUNCTION
+// ************************************************************************
 
 function addMovie() {
 
-    let addMovieTitle=$('#movie-title').val()
-    let addMovieGenre=$('#movie-genre').val()
-    let addMovieRating=$('#movie-rating').val()
-    let addMovieDescription=$('#movie-plot').val()
-    let addMovieDirector=$('#movie-director').val()
-    let addMovieYear=$('#movie-year').val()
+    let addMovieTitle=$('#movie-title').val();
+    let addMovieGenre=$('#movie-genre').val();
+    let addMovieRating=$('#movie-rating').val();
+    let addMovieDescription=$('#movie-plot').val();
+    let addMovieDirector=$('#movie-director').val();
+    let addMovieYear=$('#movie-year').val();
+    let addMovieActor = $('#movie-actors').val();
+    let addMoviePoster = "https://m.media-amazon.com/images/M/MV5BYzg0NGM2NjAtNmIxOC00MDJmLTg5ZmYtYzM0MTE4NWE2NzlhXkEyXkFqcGdeQXVyMTA4NjE0NjEy.jpg";
 
     const newMovieObj = {
         title: addMovieTitle,
         rating: addMovieRating,
-        poster: "https://m.media-amazon.com/images/M/MV5BYzg0NGM2NjAtNmIxOC00MDJmLTg5ZmYtYzM0MTE4NWE2NzlhXkEyXkFqcGdeQXVyMTA4NjE0NjEy._V1_SX300.jpg",
+        poster: addMoviePoster,
         year: addMovieYear,
         genre: addMovieGenre,
         director: addMovieDirector,
         plot: addMovieDescription,
-        actors: "Elizabeth Debicki, Robert Pattinson, John David Washington, Aaron Taylor-Johnson",
+        actors: addMovieActor
     };
     const options = {
         method: 'POST',
@@ -63,12 +76,16 @@ function addMovie() {
         },
         body: JSON.stringify(newMovieObj),
     };
-    // insert new movie
+    // INSERT NEW MOVIE
     fetch(url,options).then(movieFetchRequest);
 }
 
 
-//<-----------------------function to delete a movie----------------------->
+
+// ************************************************************************
+                        // DELETE MOVIE FUNCTION
+// ************************************************************************
+
 function deleteMovie(id) {
     const removeMovie  = fetch(`${url}/${id}`, {
 
@@ -81,9 +98,13 @@ function deleteMovie(id) {
         .catch(error => console.error(error)) /* handle errors */
 }
 
+$('#delete')
 
-//function to edit a movie
 
+
+// ************************************************************************
+                            // EDIT MOVIE FUNCTION
+// ************************************************************************
 
 function editMovie(){
     const editMovieInfo = fetch(`${url}/id`, {
@@ -92,51 +113,55 @@ function editMovie(){
         headers: {
             'Content-Type': 'application/json',
         },
-        //body: JSON.stringify(newMovieObj)
+        // body: JSON.stringify(newMovieObj)
     })
         .then((response) => response.json())
         .catch(error => console.error(error)) /* handle errors */
 }
 
+$('#edit').click(editMovie());
 
-//<-----------------------------Render cards-------------------------->
+
+
+// ************************************************************************
+                            // RENDER CARDS
+// ************************************************************************
+
 function  renderMovieCards(movie) {
-    let html= `<div class="card" >`
-    html+=`
-                 <img class="card-img-top" style="width: 200px" src=${movie.poster} alt="Card image top">
-                 <div class="card-body">
-                        <h3 class="card-title">
-                            ${movie.title.charAt(0).toUpperCase()}${movie.title.slice(1).toLowerCase()}</h3>
-                        
-                        <h4 class="card-subtitle">${movie.plot}</h4>
-                        <p class="card-text">This is a simple Card example</p>
-                        <p><button onclick='deleteMovie(${movie.id})'>Delete</button></p>
-                     </div></div>`
-    return html;
+
+        let cardHTML= "";
+        cardHTML +=
+
+            `<div class="card mb-3">
+                <div class="img">
+                    <img class="card-img-top" src=${movie.poster} alt="Card image top">
+                </div>                
+                <div>
+                    <button class="card-btn" id="edit">Edit</button><button class="card-btn" id="delete">Delete</button>
+                </div>
+                <div class="card-img-overlay">
+                    <div class="text-background"  style = "width: 35%">
+                        <h5 class="card-title card-text" id="title">${movie.title}</h5>
+                        <p class="card-text" id="year">${movie.year}</p>
+                        <p class="card-text" id="rating">${movie.rating}</p>
+                    </div>                
+                </div>
+                <div class="card-body">    
+                    <p class="card-text" id="plot">${movie.plot}</p>
+                    <p class="card-text" id="genres">${movie.genre}</p>
+                    <p class="card-text" id="director">${movie.director}</p>
+                    <p class="card-text" id="cast">${movie.actors}</p>
+                </div>            
+            </div>`
+
+    $('#rendered-card').html(cardHTML);
+
+
 }
 
 $(document).ready(function (){
 
     movieFetchRequest();
-    $('#addMovieBtn').on('click', addMovie);
+    $('#add-movie-btn').on('click', addMovie);
 
 });
-
-
-// let table = $('<table>');
-// data.forEach(movie=> {
-//     let tdTitle = $('<td>');
-//     tdTitle.html(movie.title);
-//     let tdActor = $('<td>');
-//     tdActor.html(movie.actors);
-//     let tr = $('<tr>')
-//     tr.append(tdTitle);
-//     tr.append(tdActor);
-//     table.append(tr)
-// });
-// $('body').append(table);
-
-
-
-// const url = 'https://tide-opalescent-sled.glitch.me/movies';
-/// testing need to make changes
