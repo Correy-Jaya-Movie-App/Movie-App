@@ -3,6 +3,8 @@ let DEBUG = true;
 const url = 'https://tide-opalescent-sled.glitch.me/movies'
 const apiKeyOmdb = 'http://img.omdbapi.com/?apikey=[9bad961]&'
 
+let movieList = [];
+
 
 // ************************************************************************
                        // FETCH REQUEST TO MOVIE API
@@ -19,6 +21,7 @@ function movieFetchRequest(){
     moviesObject
         .then(response =>response.json())
         .then( data => {
+            movieList = data;
             renderCards(data);
             if(DEBUG) {
                 console.log(data);
@@ -104,44 +107,55 @@ function deleteMovie(id) {
 // ************************************************************************
                             // EDIT MOVIE FUNCTION
 // ************************************************************************
-function editMovie(id,e){}
-// {
-// // e.preventDefault();
-// // const data={};
-// // $('#update-movie-btn').on('click',function (){
-// //
-// //     let addMovieTitle=$('#movie-title').val();
-// //     let addMovieGenre=$('#movie-genre').val();
-// //     let addMovieRating=$('#movie-rating').val();
-// //     let addMovieDescription=$('#movie-plot').val();
-// //     let addMovieDirector=$('#movie-director').val();
-// //     let addMovieYear=$('#movie-year').val();
-// //     let addMovieActor = $('#movie-actors').val();
-// //     let addMoviePoster = "https://m.media-amazon.com/images/M/MV5BYzg0NGM2NjAtNmIxOC00MDJmLTg5ZmYtYzM0MTE4NWE2NzlhXkEyXkFqcGdeQXVyMTA4NjE0NjEy.jpg";
-// //
-//
-// //
-// // )
-// //     const newMovieObj = {
-// //         title: addMovieTitle,
-// //         rating: addMovieRating,
-// //         poster: addMoviePoster,
-// //         year: addMovieYear,
-// //         genre: addMovieGenre,
-// //         director: addMovieDirector,
-// //         plot: addMovieDescription,
-// //         actors: addMovieActor
-// //     };
-// })
-    const editMovieInfo = fetch(`${url}/${id}`, {
+function editMovie(id,e){
 
-        method:'PUT',
+e.preventDefault();
+
+    let addMovieTitle1 =$('#movie-title').val();
+    let addMovieGenre1 =$('#movie-genre').val();
+    let addMovieRating1 =$('#movie-rating').val();
+    let addMovieDescription1 =$('#movie-plot').val();
+    let addMovieDirector1 =$('#movie-director').val();
+    let addMovieYear1 =$('#movie-year').val();
+    let addMovieActor1 = $('#movie-actors').val();
+
+    const testEditMovie = {
+        addMovieTitle1: data.title,
+        addMovieGenre1: data.genre,
+        addMovieRating1: data.rating,
+        addMovieDescription1: data.plot,
+        addMovieDirector1: data.director,
+        addMovieYear1: data.year,
+        addMovieActor1: data.actors
+    }
+
+    const getSelectedMovie = fetch(`${url}/${id}`, {
+
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
-        // body: JSON.stringify(newMovieObj)
-    }).then((response) => response.json())
-        .catch(error => console.error(error)) /* handle errors */
+
+
+})
+        .then((response) => response.json()).then(movieFetchRequest)
+        .catch(error => console.error(error)); /* handle errors */
+
+
+
+
+
+
+
+    // const editMovieInfo = fetch(`${url}/${id}`, {
+    //
+    //     method:'PUT',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     // body: JSON.stringify(newMovieObj)
+    // }).then((response) => response.json())
+    //     .catch(error => console.error(error)) /* handle errors */
 }
 
 
@@ -165,7 +179,7 @@ function  renderMovieCards(movie, parentContainer) {
                 </div>                
                 <div>
                         
-                    <button class="card-btn"  onclick="showHide()" id="edit">Edit</button><button class="card-btn" onclick="deleteMovie(${movie.id})">Delete</button>
+                    <button class="card-btn"  onclick="editForm(${movieList.indexOf(movie)})" id="edit">Edit</button><button class="card-btn" onclick="deleteMovie(${movie.id})">Delete</button>
                 </div>
 <!--                <div >-->
 <!--                    <div class="text-background"  style = "width: 35%">-->
@@ -186,10 +200,19 @@ function  renderMovieCards(movie, parentContainer) {
 
 }
 
-function showHide() {
+function editForm(index) {
     $("#add-movie-btn").hide();
     $("#update-movie-btn").show();
-}
+    let movie = movieList[index];
+
+     $('#movie-title').val(movie.title);
+     $('#movie-genre').val(movie.genre);
+     $('#movie-rating').val(movie.rating);
+     $('#movie-plot').val(movie.plot);
+     $('#movie-director').val(movie.director);
+     $('#movie-year').val(movie.year);
+     $('#movie-actors').val(movie.actors);
+};
 
 $(document).ready(function (){
     movieFetchRequest();
