@@ -1,8 +1,4 @@
 
-
-
-
-
 let DEBUG = true;
 const url = 'https://tide-opalescent-sled.glitch.me/movies'
 const apiKeyOmdb = 'http://img.omdbapi.com/?apikey=[9bad961]&'
@@ -35,13 +31,11 @@ function movieFetchRequest(){
 }
 
 function renderCards(data) {
-    let startHtml = ''
     let parent = $('#cards-container');
     parent.empty();
     for(let i=0 ;i<data.length ;i++){
         renderMovieCards(data[i],parent);
     }
-    //.html(startHtml);
     return data;
 }
 
@@ -111,6 +105,16 @@ function deleteMovie(id) {
                             // EDIT MOVIE FUNCTION
 // ************************************************************************
 
+
+
+
+// $(document).on('click','#edit',function (){
+//     $('#add-movie-btn').hide();
+// }).on('click','#edit',function(){
+//     $("#update-movie-btn").removeClass('invisible');
+// });
+
+
 function editMovie(id){
     const editMovieInfo = fetch(`${url}/${id}`, {
 
@@ -144,8 +148,8 @@ function  renderMovieCards(movie, parentContainer) {
                 </div>                
                 <div>
                         
-                    <button class="card-btn" id="edit">Edit</button>
-                    <button class="card-btn" onClick="deleteMovie(${movie.id})">Delete</button>
+                    <button class="card-btn"  onclick="showHide()" id="edit">Edit</button>
+                    <button class="card-btn" onclick="deleteMovie(${movie.id})">Delete</button>
                 </div>
                 <div >
                     <div class="text-background"  style = "width: 35%">
@@ -168,9 +172,13 @@ function  renderMovieCards(movie, parentContainer) {
 
 }
 
-$(document).ready(function (){
+function showHide() {
+    $("#add-movie-btn").hide();
+    $("#update-movie-btn").show();
+}
 
+$(document).ready(function (){
     movieFetchRequest();
     $('#add-movie-btn').on('click', addMovie);
-
+    $('#update-movie-btn ').hide()
 });
