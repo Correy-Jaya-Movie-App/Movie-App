@@ -1,7 +1,4 @@
 
-
-
-
 let DEBUG = true;
 const url = 'https://tide-opalescent-sled.glitch.me/movies'
 const apiKeyOmdb = 'http://img.omdbapi.com/?apikey=[9bad961]&'
@@ -39,7 +36,6 @@ function renderCards(data) {
     for(let i=0 ;i<data.length ;i++){
         renderMovieCards(data[i],parent);
     }
-    // $(parent).html(renderMovieCards())
     return data;
 }
 
@@ -49,8 +45,8 @@ function renderCards(data) {
                         // ADD MOVIE FUNCTION
 // ************************************************************************
 
-function addMovie() {
-
+function addMovie(e) {
+        e.preventDefault();
     let addMovieTitle=$('#movie-title').val();
     let addMovieGenre=$('#movie-genre').val();
     let addMovieRating=$('#movie-rating').val();
@@ -78,10 +74,13 @@ function addMovie() {
         body: JSON.stringify(newMovieObj),
     };
     // INSERT NEW MOVIE
-    fetch(url,options).then(movieFetchRequest);
+    fetch(url,options).then(function (e){
+        movieFetchRequest();
+    }).catch(e=>{
+        alert("Something went wrong")
+    })
 }
 
-$('#add-movie-btn').on('click', addMovie());
 
 
 // ************************************************************************
@@ -96,17 +95,44 @@ function deleteMovie(id) {
             'Content-Type': 'application/json',
         },
     })
-        .then((response) => response.json()).then(movieFetchRequest())
+        .then((response) => response.json()).then(movieFetchRequest)
         .catch(error => console.error(error)) /* handle errors */
 }
 
-// $('#delete').on('click', deleteMovie());
+
 
 // ************************************************************************
                             // EDIT MOVIE FUNCTION
 // ************************************************************************
-
-function editMovie(id){
+function editMovie(id,e){}
+// {
+// // e.preventDefault();
+// // const data={};
+// // $('#update-movie-btn').on('click',function (){
+// //
+// //     let addMovieTitle=$('#movie-title').val();
+// //     let addMovieGenre=$('#movie-genre').val();
+// //     let addMovieRating=$('#movie-rating').val();
+// //     let addMovieDescription=$('#movie-plot').val();
+// //     let addMovieDirector=$('#movie-director').val();
+// //     let addMovieYear=$('#movie-year').val();
+// //     let addMovieActor = $('#movie-actors').val();
+// //     let addMoviePoster = "https://m.media-amazon.com/images/M/MV5BYzg0NGM2NjAtNmIxOC00MDJmLTg5ZmYtYzM0MTE4NWE2NzlhXkEyXkFqcGdeQXVyMTA4NjE0NjEy.jpg";
+// //
+//
+// //
+// // )
+// //     const newMovieObj = {
+// //         title: addMovieTitle,
+// //         rating: addMovieRating,
+// //         poster: addMoviePoster,
+// //         year: addMovieYear,
+// //         genre: addMovieGenre,
+// //         director: addMovieDirector,
+// //         plot: addMovieDescription,
+// //         actors: addMovieActor
+// //     };
+// })
     const editMovieInfo = fetch(`${url}/${id}`, {
 
         method:'PUT',
@@ -118,7 +144,7 @@ function editMovie(id){
         .catch(error => console.error(error)) /* handle errors */
 }
 
-//$('#edit').click(editMovie());
+
 
 
 
@@ -138,16 +164,16 @@ function  renderMovieCards(movie, parentContainer) {
                     <img class="card-img-top" src=${movie.poster} alt="Card image top">
                 </div>                
                 <div>
-                    <button class="card-btn" id="edit">Edit</button>
-                    <button class="card-btn" onclick="deleteMovie(${movie.id})" id="delete">Delete</button>
+                        
+                    <button class="card-btn"  onclick="showHide()" id="edit">Edit</button><button class="card-btn" onclick="deleteMovie(${movie.id})">Delete</button>
                 </div>
-                <div >
-                    <div class="text-background"  style = "width: 35%">
+<!--                <div >-->
+<!--                    <div class="text-background"  style = "width: 35%">-->
                         <h5 class="card-title card-text" id="title">${movie.title}</h5>
                         <p class="card-text" id="year">${movie.year}</p>
                         <p class="card-text" id="rating">${movie.rating}</p>
-                    </div>                
-                </div>
+<!--                    </div>                -->
+<!--                </div>-->
                 <div class="card-body">     
                     <p class="card-text" id="plot">${movie.plot}</p>
                     <p class="card-text" id="genres">${movie.genre}</p>
@@ -155,18 +181,18 @@ function  renderMovieCards(movie, parentContainer) {
                     <p class="card-text" id="cast">${movie.actors}</p>
                 </div>            
             </div>`
-
     cardEl.html(cardHTML);
-
     parentContainer.append(cardEl)
 
 }
 
+function showHide() {
+    $("#add-movie-btn").hide();
+    $("#update-movie-btn").show();
+}
+
 $(document).ready(function (){
-    'use strict';
-
     movieFetchRequest();
-
-
-
+    $('#add-movie-btn').on('click', addMovie);
+    $('#update-movie-btn ').hide()
 });

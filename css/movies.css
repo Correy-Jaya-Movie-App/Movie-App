@@ -21,15 +21,15 @@ h1{
     width: 100%;
 }
 
-.card-btn, #add-movie-btn {
+.card-btn, #add-movie-btn ,#update-movie-btn{
     background-color: #000000;
-    color: #FFFFFF;
+    color: #b63131;
     border: solid .5px #FFFFFF;
     width: 50%;
     height: 2em;
 }
 
-#add-movie-btn {
+#add-movie-btn,#update-movie-btn {
     width: 100%;
 }
 
@@ -48,4 +48,8 @@ html, body, .card-body {
     width: 35%;
     background-color: #000000;
     opacity: .5%;
+}
+
+.invisible{
+    display: none;
 }
