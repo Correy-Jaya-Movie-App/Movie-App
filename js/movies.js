@@ -104,18 +104,35 @@ function deleteMovie(id) {
 // ************************************************************************
                             // EDIT MOVIE FUNCTION
 // ************************************************************************
-
-
-
-
-// $(document).on('click','#edit',function (){
-//     $('#add-movie-btn').hide();
-// }).on('click','#edit',function(){
-//     $("#update-movie-btn").removeClass('invisible');
-// });
-
-
-function editMovie(id){
+function editMovie(id,e){}
+// {
+// // e.preventDefault();
+// // const data={};
+// // $('#update-movie-btn').on('click',function (){
+// //
+// //     let addMovieTitle=$('#movie-title').val();
+// //     let addMovieGenre=$('#movie-genre').val();
+// //     let addMovieRating=$('#movie-rating').val();
+// //     let addMovieDescription=$('#movie-plot').val();
+// //     let addMovieDirector=$('#movie-director').val();
+// //     let addMovieYear=$('#movie-year').val();
+// //     let addMovieActor = $('#movie-actors').val();
+// //     let addMoviePoster = "https://m.media-amazon.com/images/M/MV5BYzg0NGM2NjAtNmIxOC00MDJmLTg5ZmYtYzM0MTE4NWE2NzlhXkEyXkFqcGdeQXVyMTA4NjE0NjEy.jpg";
+// //
+//
+// //
+// // )
+// //     const newMovieObj = {
+// //         title: addMovieTitle,
+// //         rating: addMovieRating,
+// //         poster: addMoviePoster,
+// //         year: addMovieYear,
+// //         genre: addMovieGenre,
+// //         director: addMovieDirector,
+// //         plot: addMovieDescription,
+// //         actors: addMovieActor
+// //     };
+// })
     const editMovieInfo = fetch(`${url}/${id}`, {
 
         method:'PUT',
@@ -127,7 +144,7 @@ function editMovie(id){
         .catch(error => console.error(error)) /* handle errors */
 }
 
-//$('#edit').click(editMovie());
+
 
 
 
@@ -148,16 +165,15 @@ function  renderMovieCards(movie, parentContainer) {
                 </div>                
                 <div>
                         
-                    <button class="card-btn"  onclick="showHide()" id="edit">Edit</button>
-                    <button class="card-btn" onclick="deleteMovie(${movie.id})">Delete</button>
+                    <button class="card-btn"  onclick="showHide()" id="edit">Edit</button><button class="card-btn" onclick="deleteMovie(${movie.id})">Delete</button>
                 </div>
-                <div >
-                    <div class="text-background"  style = "width: 35%">
+<!--                <div >-->
+<!--                    <div class="text-background"  style = "width: 35%">-->
                         <h5 class="card-title card-text" id="title">${movie.title}</h5>
                         <p class="card-text" id="year">${movie.year}</p>
                         <p class="card-text" id="rating">${movie.rating}</p>
-                    </div>                
-                </div>
+<!--                    </div>                -->
+<!--                </div>-->
                 <div class="card-body">     
                     <p class="card-text" id="plot">${movie.plot}</p>
                     <p class="card-text" id="genres">${movie.genre}</p>
@@ -166,9 +182,7 @@ function  renderMovieCards(movie, parentContainer) {
                 </div>            
             </div>`
     cardEl.html(cardHTML);
-    //$('#rendered-card').html(cardHTML);
     parentContainer.append(cardEl)
-    //return cardHTML;
 
 }
 
