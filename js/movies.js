@@ -2,7 +2,6 @@
 
 
 
-
 let DEBUG = true;
 const url = 'https://tide-opalescent-sled.glitch.me/movies'
 const apiKeyOmdb = 'http://img.omdbapi.com/?apikey=[9bad961]&'
@@ -35,13 +34,12 @@ function movieFetchRequest(){
 }
 
 function renderCards(data) {
-    let startHtml = ''
     let parent = $('#cards-container');
     parent.empty();
     for(let i=0 ;i<data.length ;i++){
         renderMovieCards(data[i],parent);
     }
-    //.html(startHtml);
+    // $(parent).html(renderMovieCards())
     return data;
 }
 
@@ -83,6 +81,7 @@ function addMovie() {
     fetch(url,options).then(movieFetchRequest);
 }
 
+$('#add-movie-btn').on('click', addMovie());
 
 
 // ************************************************************************
@@ -97,11 +96,11 @@ function deleteMovie(id) {
             'Content-Type': 'application/json',
         },
     })
-        .then((response) => response.json()).then(movieFetchRequest)
+        .then((response) => response.json()).then(movieFetchRequest())
         .catch(error => console.error(error)) /* handle errors */
 }
 
-
+// $('#delete').on('click', deleteMovie());
 
 // ************************************************************************
                             // EDIT MOVIE FUNCTION
@@ -139,9 +138,8 @@ function  renderMovieCards(movie, parentContainer) {
                     <img class="card-img-top" src=${movie.poster} alt="Card image top">
                 </div>                
                 <div>
-                        
                     <button class="card-btn" id="edit">Edit</button>
-                    <button class="card-btn" onClick="deleteMovie(${movie.id})">Delete</button>
+                    <button class="card-btn" onclick="deleteMovie(${movie.id})" id="delete">Delete</button>
                 </div>
                 <div >
                     <div class="text-background"  style = "width: 35%">
@@ -157,16 +155,18 @@ function  renderMovieCards(movie, parentContainer) {
                     <p class="card-text" id="cast">${movie.actors}</p>
                 </div>            
             </div>`
+
     cardEl.html(cardHTML);
-    //$('#rendered-card').html(cardHTML);
+
     parentContainer.append(cardEl)
-    //return cardHTML;
 
 }
 
 $(document).ready(function (){
+    'use strict';
 
     movieFetchRequest();
-    $('#add-movie-btn').on('click', addMovie);
+
+
 
 });
