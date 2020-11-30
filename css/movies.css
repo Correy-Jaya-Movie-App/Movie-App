@@ -6,13 +6,14 @@
 }
 
 h1{
-    color: purple;
+    color: #800080;
+    font-family: cursive;
 }
 
 .container {
     width: 100%;
     background-color: #414042;
-    color: #FFFFFF;
+    color: #9a2525;
     padding: 0;
     margin: 0;
 }
@@ -24,7 +25,7 @@ h1{
 .card-btn, #add-movie-btn ,#update-movie-btn{
     background-color: #000000;
     color: #b63131;
-    border: solid .5px #FFFFFF;
+    border: solid .5px #610c0c;
     width: 50%;
     height: 2em;
 }
@@ -36,12 +37,12 @@ h1{
 form {
     position: relative;
     background-color: #414042;
-    color: #FFFFFF;
+    color: #992020;
 }
 
 html, body, .card-body {
     background-color: #414042;
-    color: #FFFFFF;
+    color: #4b2424;
 }
 
 .text-background {
