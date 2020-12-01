@@ -156,23 +156,23 @@ function renderMovieCards(movie, parentContainer) {
                 <div class="img">
                     <img class="card-img-top" src=${movie.poster} alt="Card image top">
                 </div>                
-                <div>
-                        
-                    <button class="card-btn" onclick="editForm(${movieList.indexOf(movie)})" id="edit">Edit</button>
-                    <button class="card-btn" onclick="deleteMovie(${movie.id})">Delete</button>
+                <div>                        
+                    <button class="card-btn" onclick="editForm(${movieList.indexOf(movie)})" id="edit">Edit</button><button class="card-btn" onclick="deleteMovie(${movie.id})">Delete</button>
                 </div>
-<!--                <div >-->
-<!--                    <div class="text-background"  style = "width: 35%">-->
-                        <h5 class="card-title card-text" id="title">${movie.title}</h5>
-                        <p class="card-text" id="year">${movie.year}</p>
-                        <p class="card-text" id="rating">${movie.rating}</p>
-<!--                    </div>                -->
-<!--                </div>-->
-                <div class="card-body">     
-                    <p class="card-text" id="plot">${movie.plot}</p>
-                    <p class="card-text" id="genres">${movie.genre}</p>
-                    <p class="card-text" id="director">${movie.director}</p>
-                    <p class="card-text" id="cast">${movie.actors}</p>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <h2 class="card-title card-text" id="title">${movie.title}</h2>
+                            <p class="card-text" id="plot">${movie.plot}</p>
+                            <p class="card-text" id="genres">${movie.genre}</p>
+                        </div>
+                        <div class="col-4">
+                            <p class="card-text" id="rating"><em>Rating:</em> ${movie.rating}</p>
+                            <p class="card-text" id="director"><em>Director:</em> ${movie.director}</p>
+                            <p class="card-text" id="cast"><em>Cast:</em> ${movie.actors}</p>
+                            <p class="card-text" id="year"><em>Released:</em> ${movie.year}</p>
+                        </div>
+                    </div>
                 </div>            
             </div>`
     cardEl.html(cardHTML);
