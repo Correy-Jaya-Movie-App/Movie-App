@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
+    font-family: 'PT Sans Narrow', sans-serif;
 }
 
 h1{
@@ -10,47 +10,55 @@ h1{
     font-family: cursive;
 }
 
-.container {
-    width: 100%;
-    background-color: #414042;
-    color: #9a2525;
-    padding: 0;
+#cards-container {
+    padding-left: 20%;
     margin: 0;
 }
 
 .mb-3 {
-    width: 100%;
+    width: 80%;
 }
 
 .card-btn, #add-movie-btn ,#update-movie-btn{
     background-color: #000000;
-    color: #b63131;
-    border: solid .5px #610c0c;
+    color: goldenrod;
+    border: solid .5px goldenrod;
     width: 50%;
     height: 2em;
+    font-weight: bold;
 }
 
 #add-movie-btn,#update-movie-btn {
     width: 100%;
 }
 
-form {
-    position: relative;
-    background-color: #414042;
-    color: #992020;
+.form {
+    position: fixed;
+    top: 10%;
+    right: 20%;
+    width: 25%;
+    color: goldenrod;
 }
 
 html, body, .card-body {
     background-color: #414042;
-    color: #4b2424;
-}
-
-.text-background {
-    width: 35%;
-    background-color: #000000;
-    opacity: .5%;
+    color: #FFFFFF;
 }
 
 .invisible{
     display: none;
+}
+
+.row {
+    background-color: #414042;
+    width: 100%;
+    transform: none;
+}
+
+.card-btn {
+    display: inline-block;
+}
+
+#title {
+    text-transform: capitalize;
 }
