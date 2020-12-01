@@ -107,10 +107,12 @@ function deleteMovie(id) {
 
 $('#update-movie-btn').on('click',function (e) {
     e.preventDefault();
-    updateMovie($('#update-id').val())
+    updateMovie(event,$('#update-id').val());
 })
 
-function updateMovie(index) {
+function updateMovie(e,index) {
+
+    e.preventDefault();
 
     const a = {
 
@@ -134,7 +136,10 @@ function updateMovie(index) {
 
         body: JSON.stringify(a)
     }).then((response) => response.json())
-        .then(movieFetchRequest)
+        .then(movieFetchRequest).then(c=> {
+            $('#add-movie-btn ').show();
+            $('#update-movie-btn ').hide()
+        })
         .catch(error => console.error(error)) /* handle errors */
 
 

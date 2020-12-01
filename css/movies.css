@@ -31,11 +31,10 @@ h1{
 #add-movie-btn,#update-movie-btn {
     width: 100%;
 }
-
 .form {
     position: fixed;
-    top: 10%;
-    right: 20%;
+    top: 5%;
+    left: 65%;
     width: 25%;
     color: goldenrod;
 }
